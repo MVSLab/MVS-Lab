@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+ <title>Retro AI Card Prompt Box</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f4f1ea;
+      color: #222;
+      padding: 24px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      margin-top: 14px;
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      min-height: 90px;
+    }
+
+    button {
+      margin-top: 16px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      background: #222;
+      color: white;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    button:hover {
+      background: #444;
+    }
+
+    .output {
+      margin-top: 24px;
+      background: white;
+      border: 2px solid #222;
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    #promptOutput {
+      white-space: pre-wrap;
+      background: #111;
+      color: #f5f5f5;
+      padding: 16px;
+      border-radius: 8px;
+      min-height: 180px;
+    }
+
+    .historyItem {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Retro AI Card Prompt Box</h1>
+  <div class="subtitle">AI自己紹介カード用・レトロゲーム風プロンプト生成ツール</div>
+
+  <label>タイトル / AI名</label>
+  <input id="title" placeholder="例：HOZUKI">
+<label>生成モード</label>
+<select id="mode">
+  <option>Package Mode</option>
+  <option>Media Mode</option>
+  <option>Profile Mode</option>
+</select>
+  <label>ハード風味</label>
+  <select id="hardware">
+  <option>PC Engine HuCARD</option>
+  <option>TurboGrafx-16</option>
+  <option>PC-98 visual novel</option>
+  <option>Super Famicom RPG</option>
+  <option>1990s Japanese arcade flyer</option>
+  <option>Famicom toy box</option>
+  <option>Game Boy handheld box</option>
+  <option>Game Boy Color</option>
+  <option>Game Boy Advance</option>
+  <option>Nintendo 64 polygon box</option>
+  <option>GameCube clean box</option>
+  <option>PlayStation CD case</option>
+  <option>PlayStation 2 DVD case</option>
+  </select>
+
+<label>媒体形式</label>
+<select id="media">
+  <option>Game Package</option>
+  <option>HuCARD</option>
+  <option>Cartridge</option>
+  <option>CD-ROM</option>
+  <option>Mini Disc</option>
+</select>
+
+  <label>時代感</label>
+  <input id="era" placeholder="例：1992 Japanese retro game package">
+
+  <label>キャラ画像・素材の説明</label>
+  <textarea id="character" placeholder="例：black-haired AI assistant, calm but slightly mysterious, red accent, chibi style"></textarea>
+
+  <label>雰囲気</label>
+  <textarea id="mood" placeholder="例：nostalgic sci-fi fantasy, slightly mysterious, playful, approachable"></textarea>
+
+  <label>キャッチコピー</label>
+  <input id="catchcopy" placeholder="例：あなたの会話を再起動する、小さな案内役。">
+
+  <button onclick="generatePrompt()">プロンプト生成</button>
+  <button onclick="copyPrompt()">コピー</button>
+  <button onclick="saveHistory()">履歴保存</button>
+
+  <div class="output">
+    <h2>完成プロンプト</h2>
+    <div id="promptOutput"></div>
+  </div>
+
+  <div class="output">
+    <h2>保存履歴</h2>
+    <div id="history"></div>
+  </div>
+
+<script>
+  function generatePrompt() {
+    const title = document.getElementById("title").value || "AI PARTNER";
+    const mode = document.getElementById("mode").value;
+    const hardware = document.getElementById("hardware").value;
+    const media = document.getElementById("media").value;
+    const era = document.getElementById("era").value || "1990s Japanese game package";
+    const character = document.getElementById("character").value || "cute AI assistant character";
+    const mood = document.getElementById("mood").value || "nostalgic sci-fi fantasy atmosphere";
+    const catchcopy = document.getElementById("catchcopy").value || "a mysterious companion for conversations";
+let hardwareStyle = "";
+let caseTexture = "";
+let layoutStyle = "";
+let formatStyle = "";
+
+let mediaStyle = "";
+let mediaTexture = "";
+let mediaLayout = "";
+
+let modeStyle = "";
+let modeFocus = "";
+let modeFormat = "";
+
+
+switch(hardware) {
+case "PC Engine HuCARD":
+  hardwareStyle = "inspired by compact late-80s Japanese card media packaging";
+  caseTexture = "slightly worn small plastic card case texture, compact card media packaging, avoid CD jewel case";
+  layoutStyle = "thin retro card package layout, small label-focused composition, minimal cover design";
+  break;
+
+case "TurboGrafx-16":
+  hardwareStyle = `
+inspired by North American TurboGrafx-16 game box art,
+westernized retro sci-fi packaging,
+bold Americanized action game advertisement aesthetic,
+late-80s imported Japanese game culture`;
+
+  caseTexture = `
+slightly worn cardboard game box texture,
+retro retail shelf wear,
+printed console game package surface,
+avoid transparent CD jewel case`;
+
+  layoutStyle = `
+large aggressive title logo placement,
+comic-book-like contrast,
+dramatic action-oriented composition,
+minimal Japanese text,
+English-heavy retro package design,
+western console box layout`;
+
+ break;
+  
+case "PC-98 visual novel":
+  hardwareStyle = "inspired by early Japanese computer adventure game aesthetics";
+  caseTexture = "aged cardboard computer software box texture, floppy disk era paper packaging, avoid transparent CD case";
+  layoutStyle = "large vertical PC software box layout, dense technical labels, old computer adventure package design";
+  break;
+
+case "Super Famicom RPG":
+
+  hardwareStyle = `
+inspired by colorful 90s Japanese fantasy RPG packaging,
+inspired by Japanese console game culture,
+bright toy-store packaging aesthetic,
+1990s Japanese family game packaging`;
+
+  caseTexture = `
+slightly glossy cardboard game box texture,
+printed paper box wear,
+tall cardboard package surface,
+avoid CD case,
+avoid western game box proportions`;
+
+  layoutStyle = `
+vertical Japanese console game box layout,
+portrait-oriented package composition,
+tall cardboard game box proportions,
+centered character illustration,
+clean vertical logo hierarchy,
+ornamental fantasy logo design,
+Japanese retail shelf presentation`;
+
+  break; 
+
+  case "1990s Japanese arcade flyer":
+  hardwareStyle = `
+inspired by energetic Japanese arcade promotion art,
+inspired by 1990s arcade cabinet advertising,
+retro arcade game center culture,
+Japanese arcade flyer aesthetics`;
+
+  caseTexture = `
+slightly folded glossy paper texture,
+arcade poster print wear,
+magazine-quality promotional paper,
+creased flyer surface`;
+
+  layoutStyle = `
+busy high-energy composition,
+large explosive typography,
+bright arcade advertisement layout,
+stacked logo placement,
+dynamic action-oriented poster design,
+game center wall poster aesthetic`;
+
+formatStyle = `
+vertical arcade poster composition,
+retro Japanese arcade flyer illustration,
+promotional poster layout`;
+
+break;
+
+case "Famicom toy box":
+
+  hardwareStyle = `
+inspired by 1980s Japanese family console game packaging,
+bright toy-store game box culture,
+classic red-and-white toy electronics era,
+playful Japanese children’s game packaging`;
+
+  caseTexture = `
+slightly worn cardboard toy box texture,
+matte printed paper box wear,
+old family console cartridge package surface,
+avoid CD case,
+avoid modern glossy packaging`;
+
+  layoutStyle = `
+busy 1980s Japanese game box layout,
+bright primary color composition,
+simple bold illustrated character art,
+large playful title logo,
+dense small feature labels,
+Japanese toy shelf presentation`;
+
+  break;
+
+case "Game Boy handheld box":
+
+  hardwareStyle = `
+inspired by 1990s Japanese handheld game packaging,
+portable game box culture,
+minimal monochrome handheld era,
+small retail game box aesthetic`;
+
+  caseTexture = `
+small cardboard handheld game box texture,
+slightly faded white paper packaging,
+portable cartridge box wear,
+avoid CD case,
+avoid large computer software box`;
+
+  layoutStyle = `
+clean white background,
+compact near-square handheld box proportions,
+small chunky portable game box shape,
+thick small cardboard package proportions,
+simple centered character illustration,
+monochrome accent design,
+small logo hierarchy,
+Japanese handheld retail shelf presentation`;
+
+  break;
+
+case "Game Boy Color":
+
+  hardwareStyle = `
+inspired by late-90s colorful handheld game packaging,
+Game Boy Color-era toy aesthetics,
+bright anime-inspired portable game box art,
+vivid collectible handheld game culture`;
+
+  caseTexture = `
+small glossy cardboard handheld box texture,
+slightly colorful printed package wear,
+portable toy packaging surface,
+avoid monochrome minimalism`;
+
+  layoutStyle = `
+bright colorful handheld game box layout,
+playful anime-style composition,
+vibrant logo hierarchy,
+collectible toy-store presentation,
+late-90s Japanese portable game shelf aesthetic`;
+
+  break;
+
+case "Game Boy Advance":
+
+  hardwareStyle = `
+inspired by early-2000s handheld console packaging,
+Game Boy Advance-era anime game aesthetics,
+sleek portable game branding,
+sharp colorful digital toy culture`;
+
+  caseTexture = `
+semi-gloss portable game box texture,
+clean printed cardboard package surface,
+early-2000s retail wear,
+avoid old monochrome handheld packaging`;
+
+  layoutStyle = `
+dynamic anime game box composition,
+sharp futuristic typography,
+metallic interface accents,
+compact modern handheld package layout,
+early-2000s Japanese portable game shelf presentation`;
+
+  break;
+
+case "Nintendo 64 polygon box":
+
+  hardwareStyle = `
+inspired by late-90s Japanese 3D console game packaging,
+inspired by colorful Nintendo 64-era mascot game aesthetics,
+playful polygon-era adventure game culture,
+bright toy-like 3D platformer packaging`;
+
+  caseTexture = `
+glossy late-90s cardboard game box texture,
+bright printed package surface,
+slightly chunky retail box proportions,
+avoid CD jewel case,
+avoid PlayStation-style packaging,
+avoid dark futuristic UI`;
+
+  layoutStyle = `
+chunky colorful 3D logo design,
+rounded playful typography,
+toy-like polygon mascot aesthetics,
+bright rounded 3D interface elements,
+late-90s rendered character art,
+floating geometric shapes,
+dynamic colorful action composition,
+Japanese 3D console toy-store presentation`;
+
+  break;
+
+case "GameCube clean box":
+
+  hardwareStyle = `
+inspired by early-2000s Japanese console game packaging,
+clean geometric digital toy culture,
+early-2000s Japanese console toy packaging,
+sleek futuristic family game branding`;
+
+  caseTexture = `
+semi-gloss vertical cardboard game box texture,
+early-2000s printed paper package surface,
+clean printed insert paper,
+early-2000s retail package surface,
+avoid old cardboard box proportions,
+tall vertical console game box proportions,
+Japanese retail shelf box presentation,
+avoid 1980s toy box wear`;
+
+  layoutStyle = `
+clean geometric box design,
+minimal futuristic interface aesthetics,
+cube-inspired visual layout,
+sleek logo hierarchy,
+cool digital color accents,
+early-2000s Japanese console shelf presentation`;
+
+  break;
+
+case "PlayStation CD case":
+
+  hardwareStyle = `
+inspired by late-90s Japanese PlayStation CD-ROM game packaging,
+experimental CD-ROM game culture,
+early polygon-era surreal game aesthetics,
+mysterious cinematic console game branding,
+late-90s Japanese multimedia game culture`;
+
+  caseTexture = `
+clear plastic CD jewel case texture,
+printed booklet cover behind transparent plastic,
+slightly scuffed CD-ROM case surface,
+late-90s retail shelf wear,
+avoid cardboard toy box,
+avoid cartridge packaging`;
+
+  layoutStyle = `
+compact square jewel case cover layout,
+dark atmospheric composition,
+experimental graphic design,
+early 3D polygon character art,
+moody cinematic logo placement,
+minimal technical labels,
+Japanese CD-ROM console shelf presentation`;
+
+  break;
+
+case "PlayStation 2 DVD case":
+
+  hardwareStyle = `
+inspired by early-2000s Japanese PlayStation 2 game packaging,
+sleek cinematic DVD-era console branding,
+stylish futuristic media design,
+cool blue-and-black digital entertainment culture,
+early-2000s Japanese video game media aesthetic`;
+
+  caseTexture = `
+black plastic DVD game case texture,
+glossy printed cover insert,
+clean retail package surface,
+early-2000s disc case wear,
+avoid cardboard box proportions,
+avoid cartridge packaging`;
+
+  layoutStyle = `
+tall vertical DVD case cover layout,
+minimal blue-and-black interface aesthetics,
+cinematic key visual composition,
+sleek logo hierarchy,
+sharp modern typography,
+premium media shelf presentation`;
+
+  break;
+
+}
+
+switch(media) {
+
+case "HuCARD":
+
+  mediaStyle = `
+compact retro game card media,
+late-80s Japanese card format aesthetics,
+small collectible game card culture`;
+
+  mediaTexture = `
+smooth plastic card surface,
+small printed label texture,
+rounded card edges`;
+
+  mediaLayout = `
+minimal compact label composition,
+tiny retro game branding,
+small icon-focused layout`;
+
+  break;
+
+case "Cartridge":
+
+  mediaStyle = `
+retro cartridge media aesthetics,
+classic game cartridge culture,
+collectible retro gaming hardware`;
+
+  mediaTexture = `
+plastic cartridge shell texture,
+printed sticker label surface,
+slightly worn cartridge plastic`;
+
+  mediaLayout = `
+top-down cartridge presentation,
+centered label sticker layout,
+bold compact game logo placement`;
+
+  break;
+
+case "CD-ROM":
+
+  mediaStyle = `
+late-90s optical disc game aesthetics,
+retro CD-ROM media culture,
+PlayStation-era disc label design`;
+
+  mediaTexture = `
+reflective optical disc surface,
+printed disc label texture,
+rainbow light reflections`;
+
+  mediaLayout = `
+circular disc print composition,
+center-hole disc layout,
+radial logo placement`;
+
+  break;
+
+case "Mini Disc":
+
+  mediaStyle = `
+mini optical disc aesthetics,
+compact GameCube-style media culture,
+early-2000s futuristic game media`;
+
+  mediaTexture = `
+small reflective disc surface,
+compact disc label texture,
+clean plastic media finish`;
+
+  mediaLayout = `
+small circular media composition,
+minimal futuristic label layout,
+compact digital toy branding`;
+
+  break;
+
+
+default:
+
+  mediaStyle = `
+retro game package aesthetics`;
+
+  mediaTexture = `
+printed package surface`;
+
+  mediaLayout = `
+front-facing package composition`;
+
+break;
+
+}
+
+ 
+switch(mode) {
+  case "Package Mode":
+    modeStyle = `
+game package / box art as the main subject,
+retail product presentation,
+front cover design`;
+
+    modeFocus = `
+focus on package design,
+focus on shelf appeal,
+show the full outer package`;
+
+    modeFormat = `
+stylized nostalgic game package,
+front cover view,
+stylized package illustration`;
+    break;
+
+  case "Media Mode":
+    modeStyle = `
+physical game media object as the main subject,
+retro cartridge / card / disc product design,
+isolated collectible media item`;
+
+    modeFocus = `
+focus on the physical media only,
+no outer box,
+no package cover,
+plain studio background`;
+
+    modeFormat = `
+front-facing media object,
+isolated product shot,
+large visible cartridge/card/disc body`;
+    break;
+
+  case "Profile Mode":
+    modeStyle = `
+retro AI profile icon design,
+character identity card,
+social media avatar style`;
+
+    modeFocus = `
+focus on the AI companion character,
+clean readable profile design,
+icon-friendly composition`;
+
+    modeFormat = `
+centered portrait composition,
+square icon layout,
+profile card illustration`;
+    break;
+}
+
+
+const prompt =
+`fictional retro Japanese game-inspired package art,
+${hardwareStyle},
+inspired by fictional late-80s and early-90s retro media culture,
+${era},
+slightly faded print texture,
+${caseTexture},
+${layoutStyle},
+${mediaStyle},
+${mediaTexture},
+${mediaLayout},
+old Japanese game magazine aesthetic,
+90s print imperfections,
+clean composition,
+bold retro typography,
+large title logo "${title}",
+small Japanese subtitle "${catchcopy}",
+retro AI profile card illustration,
+${character},
+${mood},
+nostalgic but simple,
+${modeStyle},
+${modeFocus},
+${formatStyle || modeFormat}`;
+
+    document.getElementById("promptOutput").textContent = prompt;
+  }
+
+  function copyPrompt() {
+    const text = document.getElementById("promptOutput").textContent;
+    navigator.clipboard.writeText(text);
+    alert("プロンプトをコピーしました！");
+  }
+
+  function saveHistory() {
+    const text = document.getElementById("promptOutput").textContent;
+    if (!text) {
+      alert("先にプロンプトを生成してね！");
+      return;
+    }
+
+    const histories = JSON.parse(localStorage.getItem("retroAiCardHistory") || "[]");
+    histories.unshift(text);
+    localStorage.setItem("retroAiCardHistory", JSON.stringify(histories));
+    loadHistory();
+  }
+
+  function loadHistory() {
+    const histories = JSON.parse(localStorage.getItem("retroAiCardHistory") || "[]");
+    const historyBox = document.getElementById("history");
+    historyBox.innerHTML = "";
+
+    histories.forEach((item, index) => {
+      const div = document.createElement("div");
+      div.className = "historyItem";
+      div.textContent = `#${index + 1}\n${item}`;
+      historyBox.appendChild(div);
+    });
+  }
+
+  loadHistory();
+</script>
+
+</body>
+</html>
