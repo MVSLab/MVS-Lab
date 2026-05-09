@@ -114,6 +114,10 @@
   <option>GameCube clean box</option>
   <option>PlayStation CD case</option>
   <option>PlayStation 2 DVD case</option>
+  <option>Sega Saturn</option>
+  <option>Mega Drive</option>
+  <option>Dreamcast</option>
+<option>WonderSwan</option>
   </select>
 
 <label>媒体形式</label>
@@ -474,6 +478,108 @@ premium media shelf presentation`;
 
   break;
 
+case "Sega Saturn":
+
+  hardwareStyle = `
+inspired by mid-90s Japanese Sega Saturn game packaging,
+experimental sci-fi adventure game culture,
+dark anime-inspired console aesthetics,
+mysterious late-night multimedia atmosphere`;
+
+  caseTexture = `
+clear plastic CD jewel case texture,
+slightly glossy printed paper insert,
+mid-90s console game shelf wear,
+experimental multimedia package surface`;
+
+  layoutStyle = `
+dark atmospheric cover composition,
+surreal anime illustration aesthetics,
+experimental logo hierarchy,
+deep blue and silver interface accents,
+Japanese sci-fi adventure game presentation`;
+
+  break;
+
+case "Mega Drive":
+
+  hardwareStyle = `
+inspired by late-80s Sega Mega Drive box art,
+arcade-inspired futuristic action game aesthetics,
+bold techno-retro packaging culture,
+Japanese cyber arcade atmosphere`;
+
+  caseTexture = `
+hard black plastic clamshell game case texture,
+slightly scratched glossy plastic surface,
+retro VHS-style game storage case,
+snap-close plastic game case,
+Japanese Mega Drive retail case aestheticsmatte,
+ printed package surface,
+retro arcade retail wear,
+heavy ink print aesthetics`;
+
+  layoutStyle = `
+bold metallic typography,
+dark cyberpunk-inspired composition,
+aggressive arcade-style logo placement,
+high-contrast retro futuristic visuals,
+thick black plastic border framing,
+insert-paper-under-plastic aesthetics,
+VHS rental case proportions,
+no hanging tab,
+black plastic clamshell case without hang tab,
+VHS rental shelf style,
+Japanese techno arcade presentation`;
+
+  break;
+
+case "Dreamcast":
+
+  hardwareStyle = `
+inspired by late-90s Sega Dreamcast game packaging,
+optimistic futuristic internet-era aesthetics,
+clean translucent console culture,
+bright digital entertainment atmosphere`;
+
+  caseTexture = `
+semi-gloss DVD-style game package texture,
+clean printed insert surface,
+slightly translucent futuristic plastic feel,
+late-90s retail presentation`;
+
+  layoutStyle = `
+minimal white-and-orange interface aesthetics,
+clean futuristic composition,
+rounded digital typography,
+internet-era entertainment branding,
+bright optimistic console presentation`;
+
+  break;
+
+case "WonderSwan":
+
+  hardwareStyle = `
+inspired by late-90s Japanese handheld toy console packaging,
+compact monochrome portable game culture,
+minimal Japanese gadget aesthetics,
+Bandai-style collectible handheld atmosphere`;
+
+  caseTexture = `
+small matte handheld game box texture,
+portable gadget retail surface,
+slightly faded printed cardboard texture,
+compact toy-store packaging`;
+
+  layoutStyle = `
+minimal compact composition,
+clean gadget-like interface layout,
+small handheld logo hierarchy,
+Japanese portable toy shelf presentation,
+late-90s monochrome handheld aesthetics`;
+
+  break;
+
 }
 
 switch(media) {
@@ -490,11 +596,12 @@ smooth plastic card surface,
 small printed label texture,
 rounded card edges`;
 
-  mediaLayout = `
+ mediaLayout = `
 minimal compact label composition,
 tiny retro game branding,
-small icon-focused layout`;
-
+small icon-focused layout,
+visible top-edge connector strip,
+small gold contact terminals`;
   break;
 
 case "Cartridge":
@@ -607,22 +714,29 @@ isolated product shot,
 large visible cartridge/card/disc body`;
     break;
 
-  case "Profile Mode":
-    modeStyle = `
-retro AI profile icon design,
-character identity card,
-social media avatar style`;
+case "Profile Mode":
+  modeStyle = `
+actual thin retro electronic game card media,
+HuCARD-inspired AI profile card,
+physical insertable game card object,
+not packaging box,
+not retail box`;
 
-    modeFocus = `
-focus on the AI companion character,
-clean readable profile design,
-icon-friendly composition`;
+  modeFocus = `
+focus on the physical card itself,
+visible gold connector pins along the top edge,
+thin exposed contact terminals,
+rounded plastic card edges,
+AI companion portrait printed on the label`;
 
-    modeFormat = `
-centered portrait composition,
-square icon layout,
-profile card illustration`;
-    break;
+  modeFormat = `
+front-facing HuCARD-style electronic card,
+large visible card body,
+top edge connector strip,
+compact label area with centered portrait,
+clean icon-friendly profile card layout`;
+  break;
+
 }
 
 
